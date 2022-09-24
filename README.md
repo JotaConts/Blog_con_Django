@@ -1,2 +1,2 @@
-# Django_Blog
-Blog creado con Dango
+# Blog_Django
+Blog creado con Django - API de registro y login de usuario
