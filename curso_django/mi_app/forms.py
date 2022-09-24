@@ -1,4 +1,4 @@
-#Formularios para el sitio
+#Formularios para el sitio.
 #Para conocer los froms de django ver: https://docs.djangoproject.com/en/4.0/ref/forms/fields/
 
 from django import forms
