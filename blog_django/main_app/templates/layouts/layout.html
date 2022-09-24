@@ -1,0 +1,99 @@
+<!--
+    - Para los estilos creamos una carpeta llamada static dentro de la app
+    - y dentro de ésta otra carpeta llamada css y otra para las imagenes
+    - dentro de la carpeta css crearemos nuestro styles.css
+    - en nuestro layout debemos cargar la carpeta static
+    y al hacer el link a nuestro css debemosdarselo a través de llaves y porcentaje
+-->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+<head>
+    <meta charset="utf-8" />
+    <title>
+        {% block title %}
+        <!--Aqui se cargará el block title definido en cada template-->
+        {% endblock %}
+        | Blog Jota Contreras
+    </title>
+</head>
+
+<body>
+    <header>
+        <div id="logotipo">
+            <img src="{% static 'img/logo.png' %}" alt="">
+            <h1>Blog Jota Contreras</h1>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li>
+                <a href="{% url 'index' %}">Home</a>
+            </li>
+            
+            {% if user.email %}
+            
+                <li>
+                    <a href="{% url 'list_articles' %}">Categorías</a>
+                    <ul>
+                        {% for category in categories %}
+                        <li>
+                            <a href="{% url 'category' category.0 %}">{{ category.1 }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+
+                {% for page in pages %}
+                <li>
+                    <a href='{% url 'page' page.2 %}'>{{ page.1 }}</a>
+                </li>
+                {% endfor %}
+            
+                <li>
+                    <a href="{% url 'logout' %}">Salir</a>
+                </li>
+            
+            {% else %}
+            
+                <li>
+                    <a href="{% url 'register' %}">Registro</a>
+                </li>
+
+                <li>
+                    <a href="{% url 'login' %}">Login</a>
+                </li>
+
+            {% endif %}
+            
+            
+        </ul>
+    </nav>
+
+    <!-- Barra 3D -->
+    <div class="barra">
+        <span class="esquina-izquierda"></span>
+        <span class="relleno-barra"></span>
+        <span class="esquina-derecha"></span>
+    </div>
+
+    <div id="content">
+        <div class="box">
+            {% block content%}
+
+            <!-- Aqui se cargará el block content definido en cada template -->
+            <!-- y también se puede heredar este contenido: -->
+            <h3>Contenido heredado desde layout</h3>
+            {% endblock %}
+        </div>
+    </div>
+
+    <footer>Practicando con Python &copy; Jota Contreras - {% now "m/y" %}</footer>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+{% for article in articles %}
+<li><strong>{{article.id}}. {{article.title}}</strong>
+    <br />
+    <p>
+        {% for category in article.categories.all %}
+            <a href= "{% url 'category' category.id %}" >{{category.name}}</a>
+            {% if forloop.counter < article.categories.all|length %}
+                {{'|'}}
+            {% endif %}
+        {% endfor %}
+    </p>
+    <span>{{ article.created_at }}</span>
+    {% if article.public %}
+    <strong>Público</strong>
+    {% else %}
+    <strong>Privado</strong>
+    {% endif %}
+    <p>
+        {{article.content | safe}}
+    </p>
+    <br />
+</li>
+{% endfor %}
